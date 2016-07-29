@@ -1,13 +1,15 @@
+package com.happel.pokemon;
+
 import javax.swing.table.AbstractTableModel;
 
 /**
  * Created by happel on 7/29/2016.
  */
-public class UpdateableTableModel extends AbstractTableModel {
+public class UpdatableTableModel extends AbstractTableModel {
     private String[] columnNames;
     private Object[][] rowData;
 
-    public UpdateableTableModel(String[] columnNames, Object[][] rowData) {
+    public UpdatableTableModel(String[] columnNames, Object[][] rowData) {
         this.columnNames = columnNames;
         this.rowData = rowData;
     }

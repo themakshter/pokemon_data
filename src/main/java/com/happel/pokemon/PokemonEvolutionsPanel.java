@@ -1,40 +1,34 @@
+package com.happel.pokemon;
+
 import POGOProtos.Enums.PokemonIdOuterClass;
 import com.pokegoapi.api.pokemon.Pokemon;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.Arrays;
+import java.awt.BorderLayout;
 import java.util.List;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PokemonGrid extends JFrame {
+import static com.happel.pokemon.Utils.println;
 
-    private JPanel contentPanel;
-    public PokemonGrid() {
-        initUI();
-    }
+public class PokemonEvolutionsPanel extends JPanel {
 
-    private void initUI() {
-        setTitle("Pokemon Stats");
-        setSize(800, 500);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        contentPanel = (JPanel) getContentPane();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+    public PokemonEvolutionsPanel() {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JButton refreshButton = new JButton("Refresh");
-        UpdateableTableModel tableModel = createTableModel(Arrays.asList(new Pokemon[]{}));
+        UpdatableTableModel tableModel = createTableModel(Arrays.asList(new Pokemon[]{}));
         JTable table = new JTable(tableModel);
-        contentPanel.add(refreshButton);
-        contentPanel.add(buildTableContainer(table));
+        add(refreshButton);
+        add(buildTableContainer(table));
         refreshButton.addActionListener((e -> {
             new Thread() {
                 public void run() {
                     List<Pokemon> pokemonList = PokemonAnalyser.getAllPokemon();
-                    print("Size " + pokemonList.size());
+                    println("Size " + pokemonList.size());
                     tableModel.updateData(generatePokemonGrid(pokemonList));
-                    print("Finishing");
+                    println("Finishing");
                 }
             }.start();
         }));
@@ -49,16 +43,16 @@ public class PokemonGrid extends JFrame {
         return panel;
     }
 
-    private UpdateableTableModel createTableModel(final List<Pokemon> pokemonList) {
+    private UpdatableTableModel createTableModel(final List<Pokemon> pokemonList) {
         String[] columnNames = {"Pokemon", "Candy required", "Number",
                 "Number candies", "No. can evolve", "No. trade in"};
         Object[][] rowData = generatePokemonGrid(pokemonList);
-        return new UpdateableTableModel(columnNames, rowData);
+        return new UpdatableTableModel(columnNames, rowData);
     }
 
     private static Object[][] generatePokemonGrid(List<Pokemon> pokemonList) {
         Map<PokemonIdOuterClass.PokemonId, List<Pokemon>> groupedPokemon = pokemonList.stream().collect(Collectors.groupingBy(Pokemon::getPokemonId));
-        print("Grouped num" + groupedPokemon.size());
+        println("Grouped num" + groupedPokemon.size());
         Stream<Object[]> rows = groupedPokemon.entrySet().stream()
                 .sorted((e1, e2) -> Integer.compare(e1.getKey().getNumber(), e2.getKey().getNumber()))
                 .map((e) -> generatePokemonRow(e.getKey(), e.getValue()));
@@ -79,11 +73,11 @@ public class PokemonGrid extends JFrame {
     }
 
     private static int calculateNumCanEvolve(final int candiesToEvolve, final int numOfType, final int numCandies) {
-        if (candiesToEvolve == 0){
+        if (candiesToEvolve == 0) {
             return 0;
         }
         int candyLim = 0;
-        while(true) {
+        while (true) {
             if (candiesToEvolve * candyLim - candyLim + 1 > numCandies) {
                 candyLim -= 1;
                 break;
@@ -93,22 +87,5 @@ public class PokemonGrid extends JFrame {
         }
         final int maxCanEvolve = Math.min(candyLim, numOfType);
         return maxCanEvolve;
-    }
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                PokemonGrid pg = new PokemonGrid();
-                pg.setVisible(true);
-            }
-        });
-    }
-    private static void print(String string) {
-        System.out.println(string);
     }
 }

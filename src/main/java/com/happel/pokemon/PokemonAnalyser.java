@@ -1,8 +1,8 @@
+package com.happel.pokemon;
+
 import com.pokegoapi.api.PokemonGo;
 import com.pokegoapi.api.inventory.Inventories;
 import com.pokegoapi.api.pokemon.Pokemon;
-import com.pokegoapi.auth.GoogleAuthJson;
-import com.pokegoapi.auth.GoogleAuthTokenJson;
 import com.pokegoapi.auth.GoogleAutoCredentialProvider;
 import com.pokegoapi.auth.PtcCredentialProvider;
 import com.pokegoapi.exceptions.LoginFailedException;
@@ -23,7 +23,6 @@ public class PokemonAnalyser {
         }
     }
 
-
     public static List<Pokemon> getAllPokemon() {
         PokemonGo go = getGoWithGoogle();
         // PokemonGo go = getGoWithPtc();
@@ -32,7 +31,6 @@ public class PokemonAnalyser {
         List<Pokemon> pokemon = inventories.getPokebank().getPokemons();
         return pokemon;
     }
-
 
     private static PokemonGo getGoWithPtc() {
         final OkHttpClient httpClient = new OkHttpClient();

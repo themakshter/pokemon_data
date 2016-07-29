@@ -1,6 +1,9 @@
+package com.happel.pokemon;
+
 public enum Credentials {
-    PTC("username", "password"),
-    GOOGLE("username", "password");
+    PTC("", ""),
+    GOOGLE("", ""),
+    GOOGLE2("", "");
 
     public final String username;
     public final String password;
