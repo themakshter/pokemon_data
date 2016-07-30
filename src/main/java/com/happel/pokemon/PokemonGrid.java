@@ -12,26 +12,25 @@ public class PokemonGrid extends JFrame {
 
     private void initUI() {
         setTitle("Pokemon Stats");
-        setSize(800, 500);
+        setSize(1000, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         contentPanel = (JPanel) getContentPane();
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Evolutions", new PokemonEvolutionsPanel());
+        tabbedPane.addTab("Individual Stats", new PokemonStatsPanel());
         contentPanel.add(tabbedPane);
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                PokemonGrid pg = new PokemonGrid();
-                pg.setVisible(true);
+        EventQueue.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+            PokemonGrid pg = new PokemonGrid();
+            pg.setVisible(true);
         });
     }
 }

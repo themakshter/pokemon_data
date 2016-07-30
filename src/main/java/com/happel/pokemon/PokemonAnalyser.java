@@ -25,7 +25,7 @@ public class PokemonAnalyser {
 
     public static List<Pokemon> getAllPokemon() {
         PokemonGo go = getGoWithGoogle();
-        // PokemonGo go = getGoWithPtc();
+//        PokemonGo go = getGoWithPtc();
         // to get all his inventories (pokemon, backpack, egg, incubator)
         final Inventories inventories = go.getInventories();
         List<Pokemon> pokemon = inventories.getPokebank().getPokemons();

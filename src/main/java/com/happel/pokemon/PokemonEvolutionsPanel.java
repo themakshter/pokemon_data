@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.happel.pokemon.Utils.println;
+import static com.happel.pokemon.Utils.toTitleCase;
 
 public class PokemonEvolutionsPanel extends JPanel {
 
@@ -66,10 +67,6 @@ public class PokemonEvolutionsPanel extends JPanel {
         int numCanEvolve = calculateNumCanEvolve(candiesToEvolve, numOfType, numCandies);
         int numToTradeIn = 0;
         return new Object[]{ pokemonName, candiesToEvolve, numOfType, numCandies, numCanEvolve, numToTradeIn};
-    }
-
-    private static String toTitleCase(final String string) {
-        return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
     }
 
     private static int calculateNumCanEvolve(final int candiesToEvolve, final int numOfType, final int numCandies) {
