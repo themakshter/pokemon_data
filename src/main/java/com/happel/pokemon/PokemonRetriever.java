@@ -12,7 +12,7 @@ import okhttp3.*;
 import java.util.List;
 
 
-public class PokemonAnalyser {
+public class PokemonRetriever {
 
     public static void main(String[] args) {
         List<Pokemon> pokemon = getAllPokemon();
