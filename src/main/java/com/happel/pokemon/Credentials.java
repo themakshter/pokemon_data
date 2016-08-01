@@ -7,9 +7,10 @@ import java.util.Properties;
 import static com.happel.pokemon.Utils.println;
 
 public class Credentials {
-    public final String username;
-    public final String password;
-    public final CredentialType credentialType;
+    public String username;
+    public String password;
+    public CredentialType credentialType;
+    private Credentials credentials;
 
     Credentials(String username, String password, CredentialType credentialType) {
         this.username = username;
@@ -41,6 +42,11 @@ public class Credentials {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Credentials[" + username + ", " + password + ", " + credentialType.toString() + "]";
     }
 
     public enum CredentialType {PTC, GOOGLE;}

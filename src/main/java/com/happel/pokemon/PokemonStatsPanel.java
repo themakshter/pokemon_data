@@ -10,7 +10,7 @@ import static com.happel.pokemon.Utils.toTitleCase;
 
 public class PokemonStatsPanel extends PokemonPanel {
 
-    public PokemonStatsPanel(List<Credentials> credentials) {
+    public PokemonStatsPanel(Credentials credentials) {
         super(credentials);
     }
 

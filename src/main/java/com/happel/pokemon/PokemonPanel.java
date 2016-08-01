@@ -10,7 +10,7 @@ import java.util.List;
 import static com.happel.pokemon.Utils.println;
 
 public abstract class PokemonPanel extends JPanel {
-    public PokemonPanel(List<Credentials> credentials) {
+    public PokemonPanel(Credentials credentials) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JButton refreshButton = new JButton("Refresh");
         UpdatableTableModel tableModel = createTableModel(Arrays.asList(new Pokemon[]{}));
@@ -21,7 +21,7 @@ public abstract class PokemonPanel extends JPanel {
             new Thread() {
                 public void run() {
                     println("Running fetch");
-                    List<Pokemon> pokemonList = PokemonRetriever.getAllPokemon(credentials.get(0));
+                    List<Pokemon> pokemonList = PokemonRetriever.getAllPokemon(credentials);
                     println("Size " + pokemonList.size());
                     tableModel.updateData(generatePokemonGrid(pokemonList));
                     println("Finishing");
