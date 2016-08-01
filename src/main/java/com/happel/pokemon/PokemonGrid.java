@@ -22,7 +22,6 @@ public class PokemonGrid extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         contentPanel = (JPanel) getContentPane();
         contentPanel.setLayout(new BorderLayout());
-        //contentPanel.add(createRadioButtons(), BorderLayout.PAGE_START);
         CredentialPanel credentialPanel = new CredentialPanel();
         credentials = credentialPanel.getCredentials();
         contentPanel.add(credentialPanel, BorderLayout.PAGE_START);
@@ -30,34 +29,6 @@ public class PokemonGrid extends JFrame {
         tabbedPane.addTab("Evolutions", new PokemonEvolutionsPanel(credentials));
         tabbedPane.addTab("Individual Stats", new PokemonStatsPanel(credentials));
         contentPanel.add(tabbedPane, BorderLayout.CENTER);
-    }
-
-    private JPanel createRadioButtons() {
-        JRadioButton ptcButton = new JRadioButton("PTC");
-        ptcButton.setActionCommand("ptc");
-        ptcButton.setSelected(true);
-        JRadioButton googleButton = new JRadioButton("Google");
-        googleButton.setActionCommand("google");
-        JRadioButton google2Button = new JRadioButton("Google2");
-        google2Button.setActionCommand("google2");
-        ButtonGroup group = new ButtonGroup();
-        group.add(ptcButton);
-        group.add(googleButton);
-        group.add(google2Button);
-        ActionListener listener = (e) -> {
-            Credentials c = Credentials.buildCredentials(e.getActionCommand() + "_creds.properties");
-            //credentials.clear();
-            //credentials.add(c);
-        };
-        ptcButton.addActionListener(listener);
-        googleButton.addActionListener(listener);
-        google2Button.addActionListener(listener);
-        ptcButton.doClick();
-        JPanel panel = new JPanel(new GridLayout(1,3));
-        panel.add(ptcButton);
-        panel.add(googleButton);
-        panel.add(google2Button);
-        return panel;
     }
 
     public static void main(String[] args) {
@@ -138,6 +109,9 @@ class CredentialPanel extends JPanel {
         add(ptcButton, c);
         c.gridx = 2;
         add(googleButton, c);
+        ButtonGroup group = new ButtonGroup();
+        group.add(ptcButton);
+        group.add(googleButton);
         ptcButton.doClick();
     }
 
