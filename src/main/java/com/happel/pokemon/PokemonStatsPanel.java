@@ -24,7 +24,13 @@ public class PokemonStatsPanel extends PokemonPanel {
     @Override
     protected Object[][] generatePokemonGrid(List<Pokemon> pokemonList) {
         Stream<Object[]> rows = pokemonList.stream()
-                .sorted((p1, p2) -> Integer.compare(p1.getPokemonId().getNumber(), p2.getPokemonId().getNumber()))
+                .sorted((p1, p2) -> {
+                    if (p1.getPokemonId() == p2.getPokemonId()) {
+                        return -Integer.compare(p1.getCp(), p2.getCp());
+                    } else {
+                        return Integer.compare(p1.getPokemonId().getNumber(), p2.getPokemonId().getNumber());
+                    }
+                })
                 .map(PokemonStatsPanel::generatePokemonRow);
         return rows.toArray(Object[][]::new);
     }
