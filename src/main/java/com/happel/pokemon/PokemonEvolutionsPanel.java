@@ -3,10 +3,7 @@ package com.happel.pokemon;
 import POGOProtos.Enums.PokemonIdOuterClass;
 import com.pokegoapi.api.pokemon.Pokemon;
 
-import javax.swing.*;
-import java.awt.BorderLayout;
 import java.util.List;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,44 +11,20 @@ import java.util.stream.Stream;
 import static com.happel.pokemon.Utils.println;
 import static com.happel.pokemon.Utils.toTitleCase;
 
-public class PokemonEvolutionsPanel extends JPanel {
+public class PokemonEvolutionsPanel extends PokemonPanel {
 
-    public PokemonEvolutionsPanel() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JButton refreshButton = new JButton("Refresh");
-        UpdatableTableModel tableModel = createTableModel(Arrays.asList(new Pokemon[]{}));
-        JTable table = new JTable(tableModel);
-        add(refreshButton);
-        add(buildTableContainer(table));
-        refreshButton.addActionListener((e -> {
-            new Thread() {
-                public void run() {
-                    List<Pokemon> pokemonList = PokemonAnalyser.getAllPokemon();
-                    println("Size " + pokemonList.size());
-                    tableModel.updateData(generatePokemonGrid(pokemonList));
-                    println("Finishing");
-                }
-            }.start();
-        }));
+    public PokemonEvolutionsPanel(List<Credentials> credentials) {
+        super(credentials);
     }
 
-    private JPanel buildTableContainer(JTable table){
-        JPanel panel = new JPanel(new BorderLayout());
-        JScrollPane scrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
-        panel.add(table.getTableHeader(), BorderLayout.PAGE_START);
-        panel.add(scrollPane, BorderLayout.CENTER);
-        return panel;
-    }
-
-    private UpdatableTableModel createTableModel(final List<Pokemon> pokemonList) {
-        String[] columnNames = {"Pokemon", "Candy required", "Number",
+    @Override
+    protected String[] getColumnNames() {
+        return new String[] {"Pokemon", "Candy required", "Number",
                 "Number candies", "No. can evolve", "No. trade in"};
-        Object[][] rowData = generatePokemonGrid(pokemonList);
-        return new UpdatableTableModel(columnNames, rowData);
     }
 
-    private static Object[][] generatePokemonGrid(List<Pokemon> pokemonList) {
+    @Override
+    protected Object[][] generatePokemonGrid(List<Pokemon> pokemonList) {
         Map<PokemonIdOuterClass.PokemonId, List<Pokemon>> groupedPokemon = pokemonList.stream().collect(Collectors.groupingBy(Pokemon::getPokemonId));
         println("Grouped num" + groupedPokemon.size());
         Stream<Object[]> rows = groupedPokemon.entrySet().stream()

@@ -16,5 +16,12 @@
     <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.4.0-RC1" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.moshi:moshi:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.svarzee:gpsoauth-java:v0.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.Grover-c13:PokeGOAPI-Java:Development-8c8c4da83f-1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.0.0-beta-3" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.9.0" level="project" />
+    <orderEntry type="library" name="Maven: com.annimon:stream:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.4.0-RC1" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.moshi:moshi:1.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.svarzee:gpsoauth-java:v0.2.0" level="project" />
   </component>
 </module>
